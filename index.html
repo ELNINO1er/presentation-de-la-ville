@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IVORA Immobilier — Vivre et investir à Abidjan</title>
+<meta name="description" content="IVORA Immobilier : appartements, villas et biens d'exception à Abidjan et en Côte d'Ivoire. Idéal pour vivre et investir.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ===== Icônes (sprite SVG) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/><path d="M15 3.5a6 6 0 0 1 5.5 5.5M15 7a2.5 2.5 0 0 1 2 2"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M9 17h11"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-d" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1M16 3.1a4 4 0 0 1 0 7.8M22 21v-1a6 6 0 0 0-4-5.6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+    <symbol id="i-bars" viewBox="0 0 24 24"><path d="M6 20v-6M12 20V10M18 20V4"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.8-9.8M17 6l3 3M14.5 8.5l2 2"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+    <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5M14 3c.5 2.5 2.5 4.5 5 4.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-sofa" viewBox="0 0 24 24"><path d="M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v5H2zM5 18v2M19 18v2"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16V11l2-5h10l2 5v5M3 11h18v6H3zM6 17v2M18 17v2"/><circle cx="7" cy="14" r=".6"/><circle cx="17" cy="14" r=".6"/></symbol>
+    <symbol id="i-logo" viewBox="0 0 40 40"><path d="M6 38V24M10 38V18M14 38V10M18 38V4M22 38V8M26 38V14M30 38V20M34 38V27" stroke-width="1.3"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===== Menu plein écran ===== -->
+<div class="menu-overlay" id="menu" aria-hidden="true">
+  <div class="menu-inner">
+    <button class="icon-btn menu-close" data-menu-close aria-label="Fermer le menu"><svg><use href="#i-x"/></svg></button>
+    <nav class="menu-links">
+      <a href="#accueil" data-menu-close><span>01</span>Accueil</a>
+      <a href="#biens" data-menu-close><span>02</span>Nos biens</a>
+      <a href="#avantages" data-menu-close><span>03</span>Nos avantages</a>
+      <a href="#types" data-menu-close><span>04</span>Types de biens</a>
+      <a href="#faq" data-menu-close><span>05</span>Questions</a>
+      <a href="#contact" data-menu-close><span>06</span>Contact</a>
+    </nav>
+    <div class="menu-foot">
+      <p>Boulevard Latrille, Cocody Deux-Plateaux<br>Abidjan, Côte d'Ivoire</p>
+      <p>+225 07 00 00 00 00<br>contact@ivora-immobilier.ci</p>
+    </div>
+  </div>
+</div>
+
+<main class="site">
+
+  <!-- ================= HERO ================= -->
+  <section class="block hero" id="accueil">
+    <div class="hero-left">
+      <header class="topbar">
+        <a href="#accueil" class="logo" aria-label="IVORA Immobilier">
+          <svg class="logo-mark"><use href="#i-logo"/></svg>
+          <span class="logo-text"><b>IVORA</b><small>Immobilier</small></span>
+        </a>
+        <div class="topbar-actions">
+          <a href="#biens" class="icon-btn soft" aria-label="Voir la carte"><svg><use href="#i-map"/></svg></a>
+          <button class="icon-btn soft" data-menu-open aria-label="Ouvrir le menu"><svg><use href="#i-menu"/></svg></button>
+        </div>
+      </header>
+
+      <div class="hero-copy">
+        <p class="eyebrow" data-hero-fade>Bâtir vos rêves</p>
+        <h1 class="hero-title">
+          <span class="line"><span>Immobilier à Abidjan :</span></span>
+          <span class="line"><span>Idéal pour Vivre et</span></span>
+          <span class="line"><span>Investir</span></span>
+        </h1>
+      </div>
+
+      <div class="hero-bottom">
+        <a href="#contact" class="pill-cta" data-expand>
+          <span class="pill-ico"><svg><use href="#i-phone"/></svg></span>
+          <span class="pill-label">Contactez-nous</span>
+        </a>
+        <a href="#biens" class="explore" data-hero-fade>
+          <span>Explorer tous<br>nos biens</span>
+          <span class="explore-thumb"><img src="assets/img/plateau-tours.jpg" alt=""><svg><use href="#i-arrow-ur"/></svg></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-media">
+      <div class="hero-img"><img src="assets/img/hero.jpg" alt="Le Plateau d'Abidjan vu depuis la lagune Ébrié"></div>
+      <div class="hero-meta">
+        <p data-hero-fade>Plus de 1 500 biens<br>immobiliers</p>
+        <p data-hero-fade>À partir de 45 000 000 FCFA avec<br>un rendement jusqu'à 10 % par an</p>
+        <div class="hero-meta-actions" data-hero-fade>
+          <button class="icon-btn glass like" aria-label="Ajouter aux favoris"><svg><use href="#i-heart"/></svg></button>
+          <button class="icon-btn white" aria-label="Accueil"><svg><use href="#i-home"/></svg></button>
+        </div>
+      </div>
+      <a href="#types" class="catalog-btn" data-hero-fade>
+        <span>Catalogue<br>à télécharger</span>
+        <svg><use href="#i-download"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= SKYLINE + MARQUEE ================= -->
+  <section class="sky-sec">
+    <div class="sky-sticky">
+      <div class="sky-media">
+        <video class="sky-video" autoplay muted loop playsinline preload="metadata" poster="assets/video/abidjan-poster.jpg" aria-label="Vue aérienne du Plateau d'Abidjan, de la lagune Ébrié et du pont Alassane-Ouattara">
+          <source src="assets/video/abidjan-540.mp4" type="video/mp4" media="(max-width: 760px)">
+          <source src="assets/video/abidjan-720.mp4" type="video/mp4">
+        </video>
+        <div class="sky-shade"></div>
+        <div class="sky-dots">
+          <span class="icon-btn dark sm"><svg><use href="#i-home"/></svg></span>
+          <span class="icon-btn dark sm"><svg><use href="#i-key"/></svg></span>
+        </div>
+        <div class="marquee sky-marquee" aria-label="Devenez propriétaire avec un apport initial dès 15 000 000 FCFA, sans intérêts">
+          <div class="marquee-track">
+            <span>Devenez propriétaire avec un apport initial dès 15 000 000 FCFA</span><i></i><span>sans intérêts</span><i></i><span>paiement échelonné</span><i></i>
+            <span>Devenez propriétaire avec un apport initial dès 15 000 000 FCFA</span><i></i><span>sans intérêts</span><i></i><span>paiement échelonné</span><i></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORTEFEUILLE ================= -->
+  <section class="block dark portfolio" id="biens">
+    <div class="portfolio-head">
+      <h2 class="h2" data-reveal>Explorez notre portefeuille immobilier</h2>
+      <div class="tabs" role="tablist">
+        <span class="tabs-ind"></span>
+        <button class="tab active" role="tab" data-tab="appartements">Appartements</button>
+        <button class="tab" role="tab" data-tab="villas">Villas</button>
+        <button class="tab" role="tab" data-tab="location">À louer</button>
+      </div>
+    </div>
+
+    <div class="pgrid" id="pgrid"><!-- cartes injectées par JS --></div>
+
+    <div class="portfolio-foot">
+      <a href="#types" class="pill light">Tous nos biens</a>
+      <div class="social">
+        <p>Ne manquez pas nos bonnes affaires !<br>Suivez-nous sur les réseaux</p>
+        <a href="#" class="icon-btn outline sm" aria-label="YouTube"><svg><use href="#i-youtube"/></svg></a>
+        <a href="#" class="icon-btn outline sm" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+        <a href="#" class="icon-btn outline sm" aria-label="TikTok"><svg><use href="#i-tiktok"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= A PROPOS / CHIFFRES ================= -->
+  <section class="block about">
+    <div class="about-left">
+      <p class="about-intro" data-reveal>Chez IVORA Immobilier, nous offrons bien plus que de simples services immobiliers : nous vous proposons une expérience sur mesure, pensée pour répondre à vos besoins et dépasser vos attentes.</p>
+      <div class="team" data-reveal>
+        <div class="avatars">
+          <img src="assets/img/team1.jpg" alt=""><img src="assets/img/team2.jpg" alt=""><img src="assets/img/team3.jpg" alt=""><img src="assets/img/team4.jpg" alt="">
+        </div>
+        <span>Rencontrez notre<br>équipe de professionnels</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b><span data-count="150">0</span>+</b><span>Transactions réussies<br>chaque mois</span></div>
+        <div class="stat"><b><span data-count="96">0</span>%</b><span>Taux de satisfaction<br>client</span></div>
+        <div class="stat"><b><span data-count="500">0</span></b><span>Biens d'exception prêts<br>pour votre sélection</span></div>
+      </div>
+    </div>
+
+    <div class="about-media">
+      <img src="assets/img/assinie-villa.jpg" alt="Villa avec piscine et palmiers face à l'océan à Assinie" data-parallax>
+      <a href="#contact" class="pill white small-shadow about-contact"><svg><use href="#i-phone"/></svg>Contactez-nous</a>
+      <span class="about-caption">Bâtir vos rêves</span>
+      <button class="icon-btn glass sm about-help" aria-label="Aide"><svg><use href="#i-help"/></svg></button>
+      <div class="offer-card">
+        <span class="offer-av"><img src="assets/img/fondateur.jpg" alt=""><i></i></span>
+        <span><small>Offre spéciale</small>Obtenez une consultation<br>avec notre expert</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOLUTIONS ================= -->
+  <section class="block dark solutions">
+    <div class="sol-grid">
+      <div class="sol-left">
+        <h2 class="h2" data-reveal>Des solutions sur mesure<br>pour vos projets<br>immobiliers</h2>
+        <a href="#avantages" class="mini-link"><i></i>Explorer plus <svg><use href="#i-arrow-r"/></svg></a>
+      </div>
+      <div class="sol-list">
+        <a href="#faq" class="sol-pill"><span class="sol-img"><img src="assets/img/plateau-lagune.jpg" alt=""></span><span class="sol-txt">Analyse du marché<sup>01</sup></span><svg><use href="#i-arrow-d"/></svg></a>
+        <a href="#faq" class="sol-pill"><span class="sol-img"><img src="assets/img/appartement.jpg" alt=""></span><span class="sol-txt">Gestion locative<sup>02</sup></span><svg><use href="#i-arrow-d"/></svg></a>
+        <a href="#faq" class="sol-pill"><span class="sol-img"><img src="assets/img/villa-luxe.jpg" alt=""></span><span class="sol-txt">Accompagnement juridique<sup>03</sup></span><svg><use href="#i-arrow-d"/></svg></a>
+        <a href="#faq" class="sol-pill"><span class="sol-img"><img src="assets/img/plateau-vue.jpg" alt=""></span><span class="sol-txt">Financement &amp; crédit<sup>04</sup></span><svg><use href="#i-arrow-d"/></svg></a>
+      </div>
+    </div>
+    <div class="big-band">
+      <div class="big-track">
+        <span>Paiement depuis l'étranger</span><span>0 % de commission</span><span>Titre foncier sécurisé</span><span>Paiement depuis l'étranger</span><span>0 % de commission</span><span>Titre foncier sécurisé</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CHEMIN VERS LA PROPRIETE ================= -->
+  <section class="path-sec">
+    <div class="path-sticky block dark">
+      <h2 class="h2 center">Le chemin vers la propriété intelligente</h2>
+      <div class="circles">
+        <div class="circle c1"><span>10 % d'apport<br>initial</span></div>
+        <div class="circle c2"><span>Paiement sur 5 ans,<br>0 % de surcoût</span></div>
+        <div class="circle c3"><span>Revenu locatif<br>jusqu'à 10 %</span></div>
+        <div class="circle-center"><span>Propriété<br>intelligente</span></div>
+      </div>
+      <a href="#types" class="pill-cta dark-variant path-btn">
+        <span class="pill-ico"><svg><use href="#i-download"/></svg></span>
+        <span class="pill-label">Télécharger le catalogue</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= POURQUOI LA CÔTE D'IVOIRE ================= -->
+  <section class="block why" id="avantages">
+    <div class="why-head">
+      <div>
+        <p class="mini-label"><i></i>Explorez nos avantages</p>
+        <h2 class="h2 big" data-reveal>Pourquoi la Côte d'Ivoire<br>est incontournable ?</h2>
+      </div>
+      <a href="#contact" class="pill-cta" data-expand-scroll>
+        <span class="pill-ico"><svg><use href="#i-phone"/></svg></span>
+        <span class="pill-label">Contactez-nous</span>
+      </a>
+    </div>
+    <div class="why-grid">
+      <article class="why-item"><svg><use href="#i-users"/></svg><h3>Diversité</h3><p>Abidjan est une métropole cosmopolite de plus de 5 millions d'habitants, carrefour de l'Afrique de l'Ouest, où se côtoient plus de 60 ethnies et une importante communauté internationale.</p></article>
+      <article class="why-item"><svg><use href="#i-shield"/></svg><h3>Stabilité</h3><p>Depuis plus d'une décennie, le pays connaît une croissance soutenue et de grands chantiers d'infrastructures : ponts, échangeurs, métro d'Abidjan en préparation.</p></article>
+      <article class="why-item"><svg><use href="#i-coins"/></svg><h3>Monnaie stable</h3><p>Le franc CFA est arrimé à l'euro à parité fixe (1 € = 655,957 FCFA), ce qui protège votre investissement des fortes variations de change.</p></article>
+      <article class="why-item"><svg><use href="#i-file"/></svg><h3>Titre foncier sécurisé</h3><p>Nous vous accompagnons jusqu'à l'obtention de l'ACD (Arrêté de Concession Définitive) et la signature chez le notaire, pour une propriété pleinement sécurisée.</p></article>
+      <article class="why-item"><svg><use href="#i-percent"/></svg><h3>Avantages fiscaux<br>pour les investisseurs</h3><p>Selon les programmes, le Code des investissements prévoit des mesures incitatives pour les projets immobiliers. Nos conseillers vous orientent vers les dispositifs adaptés.</p></article>
+      <article class="why-item"><svg><use href="#i-bars"/></svg><h3>Crédit immobilier accessible</h3><p>Plusieurs banques ivoiriennes proposent des crédits immobiliers sur de longues durées, y compris pour la diaspora. Nous vous mettons en relation avec nos partenaires.</p></article>
+      <article class="why-item"><svg><use href="#i-key"/></svg><h3>Acquisition à distance</h3><p>Achetez depuis Paris, Montréal ou Dakar : visites vidéo, signature électronique et suivi de chantier en temps réel. Paiements sécurisés et 0 % de commission.</p></article>
+    </div>
+  </section>
+
+  <!-- ================= TYPES DE BIENS ================= -->
+  <section class="block types" id="types">
+    <div class="types-head">
+      <h2 class="h2 big center" data-reveal>Découvrez votre type<br>de bien idéal</h2>
+      <div class="types-ico">
+        <span class="icon-btn soft sm"><svg><use href="#i-home"/></svg></span>
+        <span class="icon-btn soft sm"><svg><use href="#i-key"/></svg></span>
+      </div>
+    </div>
+    <div class="masonry">
+      <div class="mcol" data-speed="-60">
+        <a class="tcard h-m" href="#contact"><img src="assets/img/villa-luxe.jpg" alt=""><em>01</em><b>Villas de luxe</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+        <a class="tcard h-l" href="#contact"><img src="assets/img/bureau.jpg" alt=""><em>06</em><b>Espaces<br>commerciaux</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+      </div>
+      <div class="mcol" data-speed="40">
+        <a class="tcard h-m" href="#contact"><img src="assets/img/penthouse.jpg" alt=""><em>02</em><b>Penthouses</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+        <a class="tcard h-l" href="#contact"><img src="assets/img/duplex.jpg" alt=""><em>07</em><b>Duplex &amp;<br>maisons de ville</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+        <a class="tcard h-m" href="#contact"><img src="assets/img/investissement.jpg" alt=""><em>10</em><b>Investissement</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+      </div>
+      <div class="mcol mid" data-speed="-30">
+        <a class="tcard h-s" href="#contact"><img src="assets/img/appartement.jpg" alt=""><em>03</em><b>Appartements</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+        <a class="tcard h-l" href="#contact"><img src="assets/img/lagune.jpg" alt=""><em>08</em><b>Résidences<br>lagunaires</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+        <div class="types-cta">
+          <svg class="logo-mark big"><use href="#i-logo"/></svg>
+          <p>Explorez notre large gamme de types de biens et trouvez celui qui vous correspond</p>
+          <a href="#contact" class="pill-cta">
+            <span class="pill-ico"><svg><use href="#i-download"/></svg></span>
+            <span class="pill-label">Télécharger le catalogue</span>
+          </a>
+        </div>
+      </div>
+      <div class="mcol" data-speed="70">
+        <a class="tcard h-s" href="#contact"><img src="assets/img/bord-de-mer.jpg" alt=""><em>04</em><b>Biens en<br>bord de mer</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+        <a class="tcard h-m" href="#contact"><img src="assets/img/vacances.jpg" alt=""><em>09</em><b>Maisons de vacances</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+        <a class="tcard h-l" href="#contact"><img src="assets/img/eco.jpg" alt=""><em>11</em><b>Biens<br>écologiques</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+      </div>
+      <div class="mcol" data-speed="-50">
+        <a class="tcard h-m" href="#contact"><img src="assets/img/golf.jpg" alt=""><em>05</em><b>Résidences<br>golf</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+        <a class="tcard h-m" href="#contact"><img src="assets/img/lodge.jpg" alt=""><em>12</em><b>Lodges<br>tropicaux</b><span class="tarrow"><svg><use href="#i-arrow-ur"/></svg></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PARTENAIRES + FAQ ================= -->
+  <section class="block beige faq-sec" id="faq">
+    <div class="partners">
+      <p class="partners-title">Nos partenaires de confiance</p>
+      <div class="marquee partners-mq">
+        <div class="marquee-track">
+          <span class="p p1">LAGUNA<small>développement</small></span>
+          <span class="p p2">ÉBURNÉA</span>
+          <span class="p p3"><svg viewBox="0 0 24 24"><path d="M12 2c3 4 3 8 0 12-3-4-3-8 0-12zM4 12c4 0 7 2 8 8-5 0-8-3-8-8zM20 12c-4 0-7 2-8 8 5 0 8-3 8-8z"/></svg>BAOBAB</span>
+          <span class="p p4">S A V A N E</span>
+          <span class="p p5"><svg viewBox="0 0 24 24"><path d="M4 20V8h3v12M10 20V4h3v16M16 20v-9h3v9"/></svg>KORA HABITAT</span>
+          <span class="p p6">AKWABA<small>invest</small></span>
+          <span class="p p1">LAGUNA<small>développement</small></span>
+          <span class="p p2">ÉBURNÉA</span>
+          <span class="p p3"><svg viewBox="0 0 24 24"><path d="M12 2c3 4 3 8 0 12-3-4-3-8 0-12zM4 12c4 0 7 2 8 8-5 0-8-3-8-8zM20 12c-4 0-7 2-8 8 5 0 8-3 8-8z"/></svg>BAOBAB</span>
+          <span class="p p4">S A V A N E</span>
+          <span class="p p5"><svg viewBox="0 0 24 24"><path d="M4 20V8h3v12M10 20V4h3v16M16 20v-9h3v9"/></svg>KORA HABITAT</span>
+          <span class="p p6">AKWABA<small>invest</small></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq">
+      <div class="faq-left">
+        <p class="mini-label"><i></i>Explorez nos avantages</p>
+        <h2 class="h2 big" data-reveal>Foire aux<br>questions</h2>
+        <p class="muted">Chez IVORA, nous offrons bien plus que de simples services immobiliers : une expérience inégalée, adaptée à vos besoins.</p>
+      </div>
+      <div class="faq-list">
+        <details class="qa"><summary>Quels types de biens proposez-vous en Côte d'Ivoire ?<svg><use href="#i-plus"/></svg></summary><div class="qa-body"><p>Appartements, villas, duplex, penthouses, terrains viabilisés et locaux commerciaux, principalement à Cocody, Riviera, Marcory, au Plateau, à Bingerville et à Assinie.</p></div></details>
+        <details class="qa"><summary>Quelles sont les options de paiement pour acheter un bien ?<svg><use href="#i-plus"/></svg></summary><div class="qa-body"><p>Paiement comptant, paiement échelonné sans intérêts sur la durée du chantier (selon les programmes) ou crédit immobilier auprès de nos banques partenaires.</p></div></details>
+        <details class="qa"><summary>Les étrangers et la diaspora peuvent-ils acheter en Côte d'Ivoire ?<svg><use href="#i-plus"/></svg></summary><div class="qa-body"><p>Oui. Les ressortissants étrangers comme la diaspora peuvent acquérir un bien immobilier. Nous gérons l'ensemble des démarches à distance avec un notaire agréé.</p></div></details>
+        <details class="qa"><summary>Comment sécuriser mon titre de propriété (ACD) ?<svg><use href="#i-plus"/></svg></summary><div class="qa-body"><p>Nous vérifions systématiquement la situation foncière du bien et vous accompagnons jusqu'à l'obtention de l'Arrêté de Concession Définitive, le titre de propriété de référence.</p></div></details>
+        <details class="qa"><summary>Y a-t-il des frais supplémentaires liés à l'achat ?<svg><use href="#i-plus"/></svg></summary><div class="qa-body"><p>Prévoyez les frais de notaire, d'enregistrement et de mutation. Nous vous remettons une estimation détaillée avant toute signature.</p></div></details>
+        <details class="qa"><summary>Proposez-vous la gestion locative de mon bien ?<svg><use href="#i-plus"/></svg></summary><div class="qa-body"><p>Oui : recherche de locataires, encaissement des loyers, entretien et reporting mensuel, que vous viviez à Abidjan ou à l'étranger.</p></div></details>
+        <details class="qa"><summary>Pouvez-vous aider les non-résidents à obtenir un financement ?<svg><use href="#i-plus"/></svg></summary><div class="qa-body"><p>Nous travaillons avec plusieurs banques ivoiriennes qui ont des offres dédiées à la diaspora. Nous montons le dossier avec vous.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="cta-sec">
+    <div class="cta-media">
+      <img src="assets/img/couple.jpg" alt="Un couple souriant dans son nouvel appartement">
+      <div class="cta-copy">
+        <h2>Construisez votre<br>avenir avec nous</h2>
+        <a href="#contact" class="pill white">Commencer votre parcours</a>
+      </div>
+      <svg class="cta-deco" viewBox="0 0 40 40"><path d="M20 4 36 20 20 36 4 20z"/></svg>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="block beige footer" id="contact">
+    <div class="f-top">
+      <div class="f-brand">
+        <a href="#accueil" class="logo"><svg class="logo-mark"><use href="#i-logo"/></svg><span class="logo-text"><b>IVORA</b><small>Immobilier</small></span></a>
+        <p>Bâtir vos rêves dans l'immobilier ivoirien</p>
+      </div>
+      <nav class="f-nav">
+        <p class="f-label">Navigation rapide</p>
+        <a href="#accueil">Accueil</a><a href="#biens">Nos biens</a><a href="#avantages">Nos avantages</a><a href="#types">Nos services</a>
+      </nav>
+      <div class="f-founder">
+        <div class="founder"><img src="assets/img/fondateur.jpg" alt=""><span><small>Fondateur</small>Kouadio Yao</span></div>
+        <p class="f-claim">Nous sommes là pour<br>changer votre avenir.</p>
+        <div class="f-actions">
+          <a href="tel:+2250700000000" class="pill dark-pill">Nous contacter</a>
+          <a href="mailto:contact@ivora-immobilier.ci" class="icon-btn plain" aria-label="E-mail"><svg><use href="#i-mail"/></svg></a>
+          <a href="#" class="icon-btn plain" aria-label="Telegram"><svg><use href="#i-send"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <form class="newsletter" onsubmit="event.preventDefault(); this.classList.add('sent');">
+        <p class="f-title">Abonnez-vous à notre newsletter</p>
+        <p class="muted">Restez informé et ne manquez aucune bonne affaire. Abonnez-vous pour recevoir nos offres exclusives !</p>
+        <label class="sr" for="nl">Votre e-mail</label>
+        <input id="nl" type="email" placeholder="Entrez votre e-mail" required>
+        <button class="pill dark-pill" type="submit"><span class="nl-default">S'abonner</span><span class="nl-ok">Merci !</span></button>
+      </form>
+      <div class="f-map">
+        <div id="footmap" class="footmap"></div>
+        <p>Boulevard Latrille,<br>Cocody Deux-Plateaux,<br>Abidjan, Côte d'Ivoire</p>
+      </div>
+      <div class="f-legal">
+        <p>Copyright 2026 © IVORA Immobilier</p>
+        <p><a href="#">Conditions d'utilisation</a><a href="#">Confidentialité</a></p>
+        <p class="credits">Photos : Wikimedia Commons (CC BY / CC BY-SA) &amp; Unsplash — Vidéo : Pexels</p>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
